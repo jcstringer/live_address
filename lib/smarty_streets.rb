@@ -1,4 +1,4 @@
-require "smarty_streets/version"
+require_relative "./smarty_streets/version"
 
 module SmartyStreets
   # Your code goes here...
