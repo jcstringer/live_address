@@ -57,7 +57,8 @@ describe SmartyStreets::SmartyStreets do
             :street  => "550 NW Franklin Avenue",
             :street2 => "Suite 200"
           }
-          #subject.new(options).verify.must_be_instance_of(Array)
+
+          subject.new(options).verify.must_be_instance_of(Array)
         end
       end
     end
