@@ -36,45 +36,41 @@ describe SmartyStreets::SmartyStreets do
     end
 
     describe "requests" do
-      # before do
-      #   VCR.insert_cassette __name__
+      let(:options) {
+        {
+          :city    => "Bend",
+          :state   => "OR",
+          :zipcode => "97701",
+          :street  => "550 NW Franklin Avenue",
+          :street2 => "Suite 200"
+        }
+      }
 
-      #   # make HTTP request in before
-      # end
+      after do
+        VCR.eject_cassette
+      end
 
-      # after do
-      #   # make HTTP request in after
+      describe "invalid address" do
+        before do
+          VCR.insert_cassette 'invalid_address', :record => :new_episodes
+        end
 
-      #   VCR.eject_cassette
-      # end
+        it "returns an empty array when the address has no results" do
+          options.merge!(:street => "1234 not real street")
+          subject.new(options).verify.must_equal []
+        end
+      end
 
-      VCR.use_cassette('valid_address') do
-        it "verifies" do
-          options = {
-            :city    => "Bend",
-            :state   => "OR",
-            :zipcode => "97701",
-            :street  => "550 NW Franklin Avenue",
-            :street2 => "Suite 200"
-          }
+      describe "valid addresss" do
+        before do
+          VCR.insert_cassette 'address', :record => :new_episodes
+        end
 
+        it "returns an array of results" do
           subject.new(options).verify.must_be_instance_of(Array)
         end
       end
     end
   end
-
-
-  # describe "splitting into lines" do
-
-  #   it "must correctly split the file into lines" do
-  #     subject.processed_source.must_be_instance_of(Array)
-  #   end
-
-  #   it "must correctly remove empty lines" do
-  #     subject.processed_source.wont_include(nil)
-  #   end
-
-  # end
 
 end
