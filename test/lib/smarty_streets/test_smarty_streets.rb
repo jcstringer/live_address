@@ -20,21 +20,39 @@ describe SmartyStreets::SmartyStreets do
   end
 
   describe "instance" do
-    subject { SmartyStreets::SmartyStreets.new }
+
+    subject { SmartyStreets::SmartyStreets }
 
     describe "attributes" do
       it "has a city" do
-        subject.must_respond_to(:city)
+        subject.new.must_respond_to(:city)
       end
     end
 
     describe "requests" do
-      it "verifies" do
-        subject.city = "Bend"
-        subject.state = "OR"
-        subject.zipcode = "97701"
-        subject.street = "2492 NW Monterey Pines Dr."
-        puts subject.verify.inspect
+      # before do
+      #   VCR.insert_cassette __name__
+
+      #   # make HTTP request in before
+      # end
+
+      # after do
+      #   # make HTTP request in after
+
+      #   VCR.eject_cassette
+      # end
+
+      VCR.use_cassette('valid_address') do
+        it "verifies" do
+          options = {
+            :city    => "Bend",
+            :state   => "OR",
+            :zipcode => "97701",
+            :street  => "550 NW Franklin Avenue",
+            :street2 => "Suite 200"
+          }
+          subject.new(options).verify.must_be_instance_of(Array)
+        end
       end
     end
   end
