@@ -6,23 +6,29 @@ module SmartyStreets
 
   class SmartyStreets
 
+    class << self
+      attr_accessor :configuration
+    end
+
     attr_accessor :street, :street2, :secondary, :city, :state, :zipcode, :lastline, :addressee,
                   :urbanization, :callback, :candidates
 
-    AUTH_ID = "00b81f59-bf87-42a6-ac65-5ea8556cac81"
-    AUTH_TOKEN = "mhv7Wy1BLAptSU4eSucbxZYiz2DtdBioQe+q+OaFGViRRxx3OFlR5Cc1wShTaS5Yx3cLFF88MsGfKpc2A099yg=="
-    API_ENDPOINT = "https://api.smartystreets.com/street-address"
+    # Pattern inspired by http://robots.thoughtbot.com/mygem-configure-block/
+    def self.configure
+      self.configuration = Configuration.new
+      yield(configuration)
+    end
 
     def self.auth_id
-      AUTH_ID
+      SmartyStreets.configuration.auth_id
     end
 
     def self.auth_token
-      AUTH_TOKEN
+      SmartyStreets.configuration.auth_token
     end
 
     def self.api_endpoint
-      API_ENDPOINT
+      SmartyStreets.configuration.api_endpoint
     end
 
     def initialize(options={})
@@ -30,6 +36,7 @@ module SmartyStreets
     end
 
     def verify
+      binding.pry
       url = UrlBuilder.new(self).url
       response = JSON.parse(HTTParty.get(url).body)
       return [] if response.empty?

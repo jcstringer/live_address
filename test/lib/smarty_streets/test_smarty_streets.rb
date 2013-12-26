@@ -2,9 +2,17 @@ require_relative '../../test_helper'
 
 describe SmartyStreets::SmartyStreets do
 
-  describe "class" do
+  subject { SmartyStreets::SmartyStreets }
 
-    subject { SmartyStreets::SmartyStreets }
+  before do
+    subject.configure do |config|
+      # These credentials are no longer valid, they were deleted after the VCR cassettes were recorded
+      config.auth_id    = "00b81f59-bf87-42a6-ac65-5ea8556cac81"
+      config.auth_token = "mhv7Wy1BLAptSU4eSucbxZYiz2DtdBioQe+q+OaFGViRRxx3OFlR5Cc1wShTaS5Yx3cLFF88MsGfKpc2A099yg=="
+    end
+  end
+
+  describe "class" do
 
     it "has an auth id" do
       subject.must_respond_to(:auth_id)
