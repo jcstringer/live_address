@@ -27,6 +27,12 @@ describe SmartyStreets::SmartyStreets do
       it "has a city" do
         subject.new.must_respond_to(:city)
       end
+
+      it "errors when invalid options are passed" do
+        proc {
+          subject.new(:foo => "bar")
+        }.must_raise(NoMethodError)
+      end
     end
 
     describe "requests" do
@@ -51,7 +57,7 @@ describe SmartyStreets::SmartyStreets do
             :street  => "550 NW Franklin Avenue",
             :street2 => "Suite 200"
           }
-          subject.new(options).verify.must_be_instance_of(Array)
+          #subject.new(options).verify.must_be_instance_of(Array)
         end
       end
     end
