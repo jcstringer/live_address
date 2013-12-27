@@ -1,8 +1,8 @@
 require_relative '../../test_helper'
 
-describe SmartyStreets::SmartyStreets do
+describe SmartyStreets do
 
-  subject { SmartyStreets::SmartyStreets }
+  subject { SmartyStreets }
 
   before do
     subject.configure do |config|
@@ -12,7 +12,7 @@ describe SmartyStreets::SmartyStreets do
     end
   end
 
-  describe "class" do
+  describe "config" do
 
     it "has an auth id" do
       subject.must_respond_to(:auth_id)
@@ -27,20 +27,12 @@ describe SmartyStreets::SmartyStreets do
     end
   end
 
-  describe "instance" do
+  describe "verify" do
 
-    subject { SmartyStreets::SmartyStreets }
-
-    describe "attributes" do
-      it "has a city" do
-        subject.new.must_respond_to(:city)
-      end
-
-      it "errors when invalid options are passed" do
-        proc {
-          subject.new(:foo => "bar")
-        }.must_raise(NoMethodError)
-      end
+    it "errors when invalid options are passed" do
+      proc {
+        subject.verify(:foo => "bar")
+      }.must_raise(NoMethodError)
     end
 
     describe "requests" do
@@ -64,24 +56,24 @@ describe SmartyStreets::SmartyStreets do
         end
 
         it "returns an empty array when the address has no results" do
-          options.merge!(:street => "1234 not real street")
-          subject.new(options).verify.must_equal []
+          options.merge!(:street => "1234 not real street", :zipcode => "9999999")
+          subject.verify(options).must_equal []
         end
       end
 
       describe "valid addresss" do
-        let (:result) { subject.new(options) }
+        let (:result) { subject.verify(options) }
 
         before do
           VCR.insert_cassette 'address', :record => :new_episodes
         end
 
         it "returns an array of results" do
-          result.verify.must_be_instance_of(Array)
+          result.must_be_instance_of(Array)
         end
 
         it "returns objects with a city" do
-          result.verify.first.components.city_name.must_equal("#{options[:city]}")
+          result.first.components.city_name.must_equal("#{options[:city]}")
         end
       end
     end

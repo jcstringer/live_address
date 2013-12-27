@@ -95,4 +95,39 @@ http_interactions:
       string: ! '[]'
     http_version: 
   recorded_at: Thu, 26 Dec 2013 20:34:21 GMT
+- request:
+    method: get
+    uri: https://api.smartystreets.com/street-address?addressee&auth-id=00b81f59-bf87-42a6-ac65-5ea8556cac81&auth-token=mhv7Wy1BLAptSU4eSucbxZYiz2DtdBioQe%2Bq%2BOaFGViRRxx3OFlR5Cc1wShTaS5Yx3cLFF88MsGfKpc2A099yg==&callback&candidates&city=Bend&lastline&secondary&state=OR&street=1234%20not%20real%20street&street2=Suite%20200&urbanization&zipcode=9999999
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.5
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Headers:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Fri, 27 Dec 2013 19:57:54 GMT
+      Content-Length:
+      - '2'
+    body:
+      encoding: US-ASCII
+      string: ! '[]'
+    http_version: 
+  recorded_at: Fri, 27 Dec 2013 19:58:11 GMT
 recorded_with: VCR 2.5.0
