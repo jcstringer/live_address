@@ -36,7 +36,6 @@ module SmartyStreets
     end
 
     def verify
-      binding.pry
       url = UrlBuilder.new(self).url
       response = JSON.parse(HTTParty.get(url).body)
       return [] if response.empty?

@@ -61,4 +61,40 @@ http_interactions:
       string: ''
     http_version: 
   recorded_at: Thu, 26 Dec 2013 20:13:52 GMT
+- request:
+    method: get
+    uri: https://api.smartystreets.com/street-address?addressee&auth-id=00b81f59-bf87-42a6-ac65-5ea8556cac81&auth-token=mhv7Wy1BLAptSU4eSucbxZYiz2DtdBioQe%2Bq%2BOaFGViRRxx3OFlR5Cc1wShTaS5Yx3cLFF88MsGfKpc2A099yg==&callback&candidates&city=Bend&lastline&secondary&state=OR&street=550%20NW%20Franklin%20Avenue&street2=Ste%20200&urbanization&zipcode=97701
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.5
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Headers:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Thu, 26 Dec 2013 20:33:52 GMT
+      Content-Length:
+      - '908'
+    body:
+      encoding: US-ASCII
+      string: ! '[{"input_index":0,"candidate_index":0,"delivery_line_1":"550 NW Franklin
+        Ave Ste 200","last_line":"Bend OR 97701-2892","delivery_point_barcode":"977012892500","components":{"primary_number":"550","street_predirection":"NW","street_name":"Franklin","street_suffix":"Ave","secondary_number":"200","secondary_designator":"Ste","city_name":"Bend","state_abbreviation":"OR","zipcode":"97701","plus4_code":"2892","delivery_point":"50","delivery_point_check_digit":"0"},"metadata":{"record_type":"H","zip_type":"Standard","county_fips":"41017","county_name":"Deschutes","carrier_route":"C004","congressional_district":"02","rdi":"Commercial","elot_sequence":"0241","elot_sort":"A","latitude":44.05722,"longitude":-121.31347,"precision":"Zip9","time_zone":"Pacific","utc_offset":-8.0,"dst":true},"analysis":{"dpv_match_code":"Y","dpv_footnotes":"AABB","dpv_cmra":"N","dpv_vacant":"N","active":"Y","footnotes":"N#"}}]'
+    http_version: 
+  recorded_at: Thu, 26 Dec 2013 20:34:22 GMT
 recorded_with: VCR 2.5.0

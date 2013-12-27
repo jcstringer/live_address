@@ -70,12 +70,18 @@ describe SmartyStreets::SmartyStreets do
       end
 
       describe "valid addresss" do
+        let (:result) { subject.new(options) }
+
         before do
           VCR.insert_cassette 'address', :record => :new_episodes
         end
 
         it "returns an array of results" do
-          subject.new(options).verify.must_be_instance_of(Array)
+          result.verify.must_be_instance_of(Array)
+        end
+
+        it "returns objects with a city" do
+          result.verify.first.components.city_name.must_equal("#{options[:city]}")
         end
       end
     end

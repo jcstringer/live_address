@@ -27,7 +27,12 @@ module SmartyStreets
     end
 
     def populate_subclass(attribute, hash)
-      klass = Object.const_set attribute.capitalize, Class.new(self.class)
+      klass_name = attribute.capitalize
+      if Object.const_defined? klass_name
+        klass = Object.const_get klass_name
+      else
+        klass = Object.const_set klass_name, Class.new(self.class)
+      end
       klass.send(:define_method, :initialize) { |args| set_attrs(args) }
       instance_variable_set("@#{attribute}", klass.new(hash))
     end
