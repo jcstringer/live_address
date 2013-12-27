@@ -1,4 +1,3 @@
-require 'json'
 require 'httparty'
 
 require_relative "./smarty_streets/exceptions"
@@ -38,9 +37,8 @@ module SmartyStreets
       raise SmartyStreets::InvalidArgumentError if options.empty?
       address = Address.new(options)
       url = UrlBuilder.new(address).url
-      response = JSON.parse(HTTParty.get(url).body)
-      return [] if response.empty?
-      response.map {|r| ResponseParser.new(r) }
+      response = HTTParty.get(url)
+      ResponseParser.parse(response)
     end
 
   end

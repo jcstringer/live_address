@@ -1,6 +1,18 @@
+require 'json'
+
 module SmartyStreets
 
   class ResponseParser
+
+    def self.parse(response)
+      raise BadInputError        if response.code == 400
+      raise AuthorizationError   if response.code == 401
+      raise PaymentRequiredError if response.code == 402
+      raise InternalServerError  if response.code == 500
+
+      parsed_response = JSON.parse(response.body)
+      parsed_response.map {|r| ResponseParser.new(r) }
+    end
 
     def initialize(response)
       set_attrs(response)
