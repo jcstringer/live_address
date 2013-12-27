@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require "mocha/setup"
 require 'webmock/minitest'
 require 'vcr'
 require File.expand_path('../../lib/smarty_streets.rb', __FILE__)

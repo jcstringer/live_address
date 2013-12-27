@@ -1,4 +1,5 @@
 require_relative '../../test_helper'
+require "ostruct"
 
 describe SmartyStreets do
 
@@ -31,30 +32,60 @@ describe SmartyStreets do
 
     describe "exceptions" do
 
-      it "errors when the auth_id is not present" do
+      it "auth_id is not present" do
         subject.configure { |config| config.auth_id = nil }
         proc {
           subject.verify(:foo => "bar")
         }.must_raise(SmartyStreets::InvalidConfigError)
       end
 
-      it "errors when the auth_token is not present" do
+      it "auth_token is not present" do
         subject.configure { |config| config.auth_token = nil }
         proc {
           subject.verify(:foo => "bar")
         }.must_raise(SmartyStreets::InvalidConfigError)
       end
 
-      it "errors when invalid options are passed" do
+      it "invalid options are passed" do
         proc {
           subject.verify(:foo => "bar")
         }.must_raise(SmartyStreets::InvalidArgumentError)
       end
 
-      it "errors when no options are passed" do
+      it "no options are passed" do
         proc {
           subject.verify
         }.must_raise(SmartyStreets::InvalidArgumentError)
+      end
+
+      describe "response codes" do
+        it "status 400" do
+          HTTParty.stubs(:get).returns(OpenStruct.new(:code => 400))
+          proc {
+            subject.verify(:candidates => 1)
+          }.must_raise(SmartyStreets::BadInputError)
+        end
+
+        it "status 401" do
+          HTTParty.stubs(:get).returns(OpenStruct.new(:code => 401))
+          proc {
+            subject.verify(:candidates => 1)
+          }.must_raise(SmartyStreets::AuthorizationError)
+        end
+
+        it "status 402" do
+          HTTParty.stubs(:get).returns(OpenStruct.new(:code => 402))
+          proc {
+            subject.verify(:candidates => 1)
+          }.must_raise(SmartyStreets::PaymentRequiredError)
+        end
+
+        it "status 500" do
+          HTTParty.stubs(:get).returns(OpenStruct.new(:code => 500))
+          proc {
+            subject.verify(:candidates => 1)
+          }.must_raise(SmartyStreets::InternalServerError)
+        end
       end
     end
 
