@@ -1,6 +1,7 @@
 require 'json'
 require 'httparty'
 
+require_relative "./smarty_streets/exceptions"
 require_relative "./smarty_streets/version"
 require_relative "./smarty_streets/configuration"
 require_relative "./smarty_streets/address"
@@ -30,7 +31,11 @@ module SmartyStreets
       SmartyStreets.configuration.api_endpoint
     end
 
-    def verify(options)
+    def verify(options={})
+      if self.configuration.auth_id.nil? || self.configuration.auth_token.nil?
+        raise SmartyStreets::InvalidConfigError
+      end
+      raise SmartyStreets::InvalidArgumentError if options.empty?
       address = Address.new(options)
       url = UrlBuilder.new(address).url
       response = JSON.parse(HTTParty.get(url).body)

@@ -29,10 +29,33 @@ describe SmartyStreets do
 
   describe "verify" do
 
-    it "errors when invalid options are passed" do
-      proc {
-        subject.verify(:foo => "bar")
-      }.must_raise(NoMethodError)
+    describe "exceptions" do
+
+      it "errors when the auth_id is not present" do
+        subject.configure { |config| config.auth_id = nil }
+        proc {
+          subject.verify(:foo => "bar")
+        }.must_raise(SmartyStreets::InvalidConfigError)
+      end
+
+      it "errors when the auth_token is not present" do
+        subject.configure { |config| config.auth_token = nil }
+        proc {
+          subject.verify(:foo => "bar")
+        }.must_raise(SmartyStreets::InvalidConfigError)
+      end
+
+      it "errors when invalid options are passed" do
+        proc {
+          subject.verify(:foo => "bar")
+        }.must_raise(SmartyStreets::InvalidArgumentError)
+      end
+
+      it "errors when no options are passed" do
+        proc {
+          subject.verify
+        }.must_raise(SmartyStreets::InvalidArgumentError)
+      end
     end
 
     describe "requests" do
