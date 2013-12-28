@@ -92,8 +92,8 @@ describe SmartyStreets do
     describe "requests" do
       let(:options) {
         {
-          :city    => "Bend",
-          :state   => "OR",
+          :city    => "bend",
+          :state   => "oregon",
           :zipcode => "97701",
           :street  => "550 NW Franklin Avenue",
           :street2 => "Suite 200"
@@ -116,19 +116,22 @@ describe SmartyStreets do
       end
 
       describe "valid addresss" do
-        let (:result) { subject.verify(options) }
+        let (:results) { subject.verify(options) }
 
         before do
           VCR.insert_cassette 'address', :record => :new_episodes
         end
 
         it "returns an array of results" do
-          result.must_be_instance_of(Array)
+          results.must_be_instance_of(Array)
         end
 
-        it "returns objects with a city" do
-          result.first.components.city_name.must_equal("#{options[:city]}")
+        it "returns objects with a formatted address" do
+          result = results.first
+          result.delivery_line_1.must_equal("550 NW Franklin Ave Ste 200")
+          result.last_line.must_equal("Bend OR 97701-2892")
         end
+
       end
     end
   end
