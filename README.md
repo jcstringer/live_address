@@ -8,7 +8,7 @@ Where this gem differs from its predecessors is that it attempts to futureproof 
 
 ## Current Version
 
-0.0.2
+[![Gem Version](https://badge.fury.io/rb/live_address.png)](http://badge.fury.io/rb/live_address)
 
 ## Requirements
 
