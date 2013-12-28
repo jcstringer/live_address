@@ -1,9 +1,9 @@
 require_relative '../../test_helper'
 
-describe SmartyStreets do
+describe LiveAddress do
 
   it "must be defined" do
-    SmartyStreets::VERSION.wont_be_nil
+    LiveAddress::VERSION.wont_be_nil
   end
 
 end

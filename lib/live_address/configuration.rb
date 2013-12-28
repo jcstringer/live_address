@@ -1,4 +1,4 @@
-module SmartyStreets
+module LiveAddress
   class Configuration
 
     attr_accessor :api_endpoint, :auth_id, :auth_token

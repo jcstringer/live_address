@@ -1,6 +1,6 @@
 require 'uri'
 
-module SmartyStreets
+module LiveAddress
 
   class UrlBuilder
 
@@ -26,10 +26,10 @@ module SmartyStreets
         :urbanization => instance.urbanization,
         :callback => instance.callback,
         :candidates => instance.candidates,
-        :"auth-id" => SmartyStreets::auth_id,
-        :"auth-token" => SmartyStreets::auth_token
+        :"auth-id" => LiveAddress::auth_id,
+        :"auth-token" => LiveAddress::auth_token
       }
-      "#{SmartyStreets::api_endpoint}?#{URI.encode_www_form(params)}"
+      "#{LiveAddress::api_endpoint}?#{URI.encode_www_form(params)}"
     end
 
   end

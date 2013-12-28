@@ -1,13 +1,13 @@
 require 'httparty'
 
-require_relative "./smarty_streets/exceptions"
-require_relative "./smarty_streets/version"
-require_relative "./smarty_streets/configuration"
-require_relative "./smarty_streets/address"
-require_relative "./smarty_streets/url_builder"
-require_relative "./smarty_streets/response_parser"
+require_relative "./live_address/exceptions"
+require_relative "./live_address/version"
+require_relative "./live_address/configuration"
+require_relative "./live_address/address"
+require_relative "./live_address/url_builder"
+require_relative "./live_address/response_parser"
 
-module SmartyStreets
+module LiveAddress
 
   class << self
     attr_accessor :configuration
@@ -19,22 +19,22 @@ module SmartyStreets
     end
 
     def auth_id
-      SmartyStreets.configuration.auth_id
+      LiveAddress.configuration.auth_id
     end
 
     def auth_token
-      SmartyStreets.configuration.auth_token
+      LiveAddress.configuration.auth_token
     end
 
     def api_endpoint
-      SmartyStreets.configuration.api_endpoint
+      LiveAddress.configuration.api_endpoint
     end
 
     def verify(options={})
       if self.configuration.auth_id.nil? || self.configuration.auth_token.nil?
-        raise SmartyStreets::InvalidConfigError
+        raise LiveAddress::InvalidConfigError
       end
-      raise SmartyStreets::InvalidArgumentError if options.empty?
+      raise LiveAddress::InvalidArgumentError if options.empty?
       address = Address.new(options)
       url = UrlBuilder.new(address).url
       response = HTTParty.get(url)

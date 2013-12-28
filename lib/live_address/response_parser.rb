@@ -1,6 +1,6 @@
 require 'json'
 
-module SmartyStreets
+module LiveAddress
 
   class ResponseParser
 

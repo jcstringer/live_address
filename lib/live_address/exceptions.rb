@@ -1,4 +1,4 @@
-module SmartyStreets
+module LiveAddress
 
   class InvalidConfigError < StandardError; end
   class InvalidArgumentError < StandardError; end
