@@ -32,16 +32,13 @@ Or install it yourself as:
 
 1. First things first. You will need to sign up for an account with Smarty Streets. Once you have signed up and logged in you should be able to generate an API key which will give you the Auth ID and Auth Token that you'll need to start using this gem.
 2. Configure your Rails app to use your credentials with the gem. The suggested approach would be to put this in an initializer. Also be sure to use the raw version of the Auth token and not the encoded one.
-
 ```
 LiveAddress.configure do |config|
   config.auth_id    = "YOUR AUTH ID"
   config.auth_token = "YOUR AUTH TOKEN"
 end
 ```
-
 3. Use the verify method to request address verification of an address that you submit. The list of valid input fields can be seen [here](http://smartystreets.com/kb/liveaddress-api/rest-endpoint). Note that you can limit the number of results using the optional candidates field. The results are returned as an array of formatted address objects, and a lookup with no results simply returns an empty array.
-
 ```
 => address = {
             :city    => "bend",
