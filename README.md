@@ -40,7 +40,7 @@ LiveAddress.configure do |config|
 end
 ```
 
-3. Use the verify method to request address verification of an address that you submit. The list of valid input fields can be seen [here](http://smartystreets.com/kb/liveaddress-api/rest-endpoint). Note that you can limit the number of results using the optional candidates field. The results are returned as an array of formatted address objects, and a lookup with no results simply returns an empty array.
+3. Use the verify method to request address verification of an address that you submit. The SmartyStreets web site contains document for valid [input fields](http://smartystreets.com/kb/liveaddress-api/rest-endpoint) and [response fields](http://smartystreets.com/kb/liveaddress-api/field-definitions). Note that you can limit the number of results using the optional candidates field. The results are returned as an array of formatted ResponseParser objects, and a lookup with no results simply returns an empty array.
 
 ```
 => address = {
