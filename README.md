@@ -10,6 +10,10 @@ Where this gem differs from its predecessors is that it attempts to futureproof 
 
 0.0.1
 
+## Requirements
+
+This gem was created and tested with Ruby 1.9.3. It may well work with earlier versions of Ruby but I make no guarantees.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -30,7 +34,7 @@ Or install it yourself as:
 2. Configure your Rails app to use your credentials with the gem. The suggested approach would be to put this in an initializer. Also be sure to use the raw version of the Auth token and not the encoded one.
 
 ```
-SmartyStreets.configure do |config|
+LiveAddress.configure do |config|
   config.auth_id    = "YOUR AUTH ID"
   config.auth_token = "YOUR AUTH TOKEN"
 end
@@ -39,7 +43,7 @@ end
 3. Use the verify method to request address verification of an address that you submit. The list of valid input fields can be seen [here](http://smartystreets.com/kb/liveaddress-api/rest-endpoint). Note that you can limit the number of results using the optional candidates field. The results are returned as an array of formatted address objects, and a lookup with no results simply returns an empty array.
 
 ```
-address = {
+=> address = {
             :city    => "bend",
             :state   => "oregon",
             :zipcode => "97701",
@@ -47,9 +51,9 @@ address = {
             :street2 => "Suite 200"
           }
 
-SmartyStreets.verify(address)
+=> LiveAddress.verify(address)
 
-# [#<SmartyStreets::ResponseParser:0x007ffd6c972fe0
+# [#<LiveAddress::ResponseParser:0x007ffd6c972fe0
   @analysis=
    #<Analysis:0x007ffd6c970830
     @active="Y",
