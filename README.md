@@ -113,6 +113,9 @@ rake
 
 Chris Stringer / [@jcstringer](https://github.com/jcstringer)
 
+## Bugs
+
+File an [issue](https://github.com/jcstringer/live_address/issues)
 
 ## Contributing
 
